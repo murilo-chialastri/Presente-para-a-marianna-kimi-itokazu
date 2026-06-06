@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"f:\\\\projetos\\\\dia dos namorados\" | Select-Object Name, @{N='KB';E={[math]::Round\\($_.Length/1KB,1\\)}})"
+    ]
+  }
+}

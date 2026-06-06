@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Você 💜</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="purple">
+
+    <!-- FORMATO CORACAO (SVG clipPath - nao remova) -->
+    <svg class="svg-defs" aria-hidden="true" focusable="false">
+        <defs>
+            <clipPath id="heart-clip" clipPathUnits="objectBoundingBox">
+                <path d="M0.5,0.92 C0.18,0.78 0.02,0.62 0.02,0.38 C0.02,0.15 0.16,0.04 0.30,0.04 C0.40,0.04 0.46,0.10 0.50,0.20 C0.54,0.10 0.60,0.04 0.70,0.04 C0.84,0.04 0.98,0.15 0.98,0.38 C0.98,0.62 0.82,0.78 0.50,0.92Z"/>
+            </clipPath>
+        </defs>
+    </svg>
+
+    <!--
+        CORACOES FLUTUANTES DE FUNDO
+        Para adicionar fotos: dentro de cada .heart-inner,
+        substitua o div.heart-placeholder pela tag img:
+        <img src="fotos/foto1.jpg" alt="Memoria" class="heart-img">
+    -->
+    <div class="hearts-bg" id="hearts-bg" aria-hidden="true">
+        <div class="heart-float" style="--left:5%;--size:72px;--dur:16s;--delay:0s">
+            <div class="heart-inner">
+                <!-- FOTO 1 - <img src="fotos/foto1.jpg" alt="Memoria 1" class="heart-img"> -->
+                <div class="heart-placeholder"></div>
+            </div>
+        </div>
+        <div class="heart-float" style="--left:18%;--size:54px;--dur:13s;--delay:3s">
+            <div class="heart-inner">
+                <!-- FOTO 2 - <img src="fotos/foto2.jpg" alt="Memoria 2" class="heart-img"> -->
+                <div class="heart-placeholder"></div>
+            </div>
+        </div>
+        <div class="heart-float" style="--left:33%;--size:88px;--dur:18s;--delay:6s">
+            <div class="heart-inner">
+                <!-- FOTO 3 - <img src="fotos/foto3.jpg" alt="Memoria 3" class="heart-img"> -->
+                <div class="heart-placeholder"></div>
+            </div>
+        </div>
+        <div class="heart-float" style="--left:50%;--size:62px;--dur:14s;--delay:1.5s">
+            <div class="heart-inner">
+                <!-- FOTO 4 - <img src="fotos/foto4.jpg" alt="Memoria 4" class="heart-img"> -->
+                <div class="heart-placeholder"></div>
+            </div>
+        </div>
+        <div class="heart-float" style="--left:65%;--size:80px;--dur:17s;--delay:5s">
+            <div class="heart-inner">
+                <!-- FOTO 5 - <img src="fotos/foto5.jpg" alt="Memoria 5" class="heart-img"> -->
+                <div class="heart-placeholder"></div>
+            </div>
+        </div>
+        <div class="heart-float" style="--left:80%;--size:58px;--dur:12s;--delay:8s">
+            <div class="heart-inner">
+                <!-- FOTO 6 - <img src="fotos/foto6.jpg" alt="Memoria 6" class="heart-img"> -->
+                <div class="heart-placeholder"></div>
+            </div>
+        </div>
+        <div class="heart-float" style="--left:91%;--size:48px;--dur:15s;--delay:11s">
+            <div class="heart-inner">
+                <!-- FOTO 7 - <img src="fotos/foto7.jpg" alt="Memoria 7" class="heart-img"> -->
+                <div class="heart-placeholder"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA DE LOGIN -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <span class="login-icon">💜</span>
+            <h1 class="login-title">Bem-vinda</h1>
+            <p class="login-subtitle">Espero que goste do seu presente</p>
+            <div class="login-form">
+                <input type="text" id="name-input" class="name-input" placeholder="Digite seu nome..." autocomplete="off" spellcheck="false">
+                <button id="login-btn" class="login-btn">Entrar ✨</button>
+                <p id="login-error" class="error-msg hidden">Hmm, tem certeza que é você? 😊</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTEUDO PRINCIPAL -->
+    <div id="main-content" class="main-content hidden">
+
+        <!-- Seletor de Tema -->
+        <div class="theme-switcher" id="theme-switcher">
+            <button class="theme-btn active" data-theme="purple"  title="Tema Roxo (principal)">💜</button>
+            <button class="theme-btn"        data-theme="red"     title="Tema Vermelho">❤️</button>
+            <button class="theme-btn"        data-theme="minimal" title="Tema Minimalista">🤍</button>
+        </div>
+
+        <!-- 1. Boas-vindas -->
+        <section id="welcome-section" class="section welcome-section">
+            <div class="welcome-content">
+                <span class="welcome-emoji">💖</span>
+                <h1 id="welcome-title">Bem-vinda, meu amor ❤️</h1>
+                <p class="welcome-subtitle">
+                    Tenho certeza que você nunca se imaginou ganhando um presente desses,<br>
+                    claramente não está perfeito, mas espero que você goste.
+                </p>
+                <div class="scroll-hint">
+                    <span>Role para baixo para explorar</span>
+                    <div class="scroll-arrow">↓</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Carta de Amor -->
+        <section class="section letter-section">
+            <h2 class="section-title">💌 Uma Carta Para Você</h2>
+            <div class="letter-container">
+                <button id="letter-btn" class="letter-btn">Clique para abrir 💌</button>
+                <div id="letter-content" class="letter-content hidden">
+                    <div class="letter-paper">
+                        <p class="letter-date">Com amor, sempre...</p>
+                        <p>Meu amor,</p>
+                        <p>Há momentos na vida que a gente não consegue descrever com palavras, mas mesmo assim sente a necessidade de tentar. Você é um desses momentos — e também é a razão pela qual eu sorrio sem perceber, penso em você nos momentos mais aleatórios e sinto que o mundo faz mais sentido quando você está perto.</p>
+                        <p>Obrigado por existir do jeito que você é. Por cada risada, por cada conversa, por cada olhar trocado. Você tornou tudo mais bonito, e cada dia ao seu lado é uma memória que guardo com muito carinho no coração.</p>
+                        <p>Que essa página seja só mais uma pequena prova de que você é especial pra mim — hoje, amanhã e sempre.</p>
+                        <p class="letter-signature">Com todo o meu amor,<br>sempre seu ❤️</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Galeria / Carrossel -->
+        <!--
+            GALERIA: Para adicionar fotos, substitua o div.photo-placeholder
+            de cada slide pela tag img dentro de .photo-box:
+            <img src="fotos/memoria1.jpg" alt="Legenda" class="gallery-img">
+        -->
+        <section class="section gallery-section">
+            <h2 class="section-title">📸 Nossas Memórias</h2>
+            <div class="carousel-wrapper" id="carousel-wrapper">
+                <div id="carousel" class="carousel">
+                    <div class="carousel-item">
+                        <div class="photo-box">
+                            <!-- FOTO 1 - <img src="fotos/memoria1.jpg" alt="Memoria 1" class="gallery-img"> -->
+                            <div class="photo-placeholder"><span class="ph-icon">📸</span><span class="ph-label">Foto 1</span></div>
+                        </div>
+                        <p class="photo-caption">Nossa primeira foto juntos</p>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="photo-box">
+                            <!-- FOTO 2 - <img src="fotos/memoria2.jpg" alt="Memoria 2" class="gallery-img"> -->
+                            <div class="photo-placeholder"><span class="ph-icon">🌅</span><span class="ph-label">Foto 2</span></div>
+                        </div>
+                        <p class="photo-caption">Um pôr do sol inesquecível</p>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="photo-box">
+                            <!-- FOTO 3 - <img src="fotos/memoria3.jpg" alt="Memoria 3" class="gallery-img"> -->
+                            <div class="photo-placeholder"><span class="ph-icon">🎂</span><span class="ph-label">Foto 3</span></div>
+                        </div>
+                        <p class="photo-caption">Comemorando momentos especiais</p>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="photo-box">
+                            <!-- FOTO 4 - <img src="fotos/memoria4.jpg" alt="Memoria 4" class="gallery-img"> -->
+                            <div class="photo-placeholder"><span class="ph-icon">🌺</span><span class="ph-label">Foto 4</span></div>
+                        </div>
+                        <p class="photo-caption">Momentos que guardarei para sempre</p>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="photo-box">
+                            <!-- FOTO 5 - <img src="fotos/memoria5.jpg" alt="Memoria 5" class="gallery-img"> -->
+                            <div class="photo-placeholder"><span class="ph-icon">✨</span><span class="ph-label">Foto 5</span></div>
+                        </div>
+                        <p class="photo-caption">Cada dia ao seu lado é especial</p>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carousel-dots"></div>
+            </div>
+        </section>
+
+        <!-- 4. Linha do Tempo -->
+        <section class="section timeline-section">
+            <h2 class="section-title">💝 Nossa História</h2>
+            <div class="timeline" id="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot">💕</div>
+                    <div class="timeline-content">
+                        <h3>Primeiro Encontro</h3>
+                        <p>O dia em que nossos caminhos se cruzaram e tudo mudou. Um sorriso que não saiu mais da minha cabeça.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">🌹</div>
+                    <div class="timeline-content">
+                        <h3>Primeiro Beijo</h3>
+                        <p>Aquele momento perfeito que guardei no coração para sempre. O tempo parou por alguns segundos especiais.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">💑</div>
+                    <div class="timeline-content">
+                        <h3>Começamos a Namorar</h3>
+                        <p>A partir daí, passamos a escrever juntos a história mais bonita das nossas vidas.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">🗺️</div>
+                    <div class="timeline-content">
+                        <h3>Nossa Primeira Viagem</h3>
+                        <p>Descobrir o mundo ao seu lado é uma das coisas mais lindas que já vivi. Que venham muitas mais.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">⭐</div>
+                    <div class="timeline-content">
+                        <h3>Hoje e Sempre</h3>
+                        <p>E aqui estamos, construindo novas memórias todos os dias. O melhor ainda está por vir, meu amor.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodape -->
+        <footer class="footer">
+            <p>Feito com 💜 para você, Marianna Kimi Itokazu</p>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
