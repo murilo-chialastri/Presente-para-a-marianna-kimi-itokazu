@@ -865,7 +865,7 @@ body {
 .scatter-container {
     position: relative;
     width: 100%;
-    height: 1600px; /* mobile: 6 linhas de polaroids */
+    height: 1500px; /* mobile: 6 linhas de polaroids */
     margin: 0 auto;
 }
 
@@ -966,7 +966,7 @@ body {
 /* Desktop */
 @media (min-width: 600px) {
     .scatter-container {
-        height: 1600px;
+        height: 1500px;
         max-width: 580px;
     }
 
