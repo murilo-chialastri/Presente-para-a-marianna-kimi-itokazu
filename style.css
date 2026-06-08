@@ -668,6 +668,318 @@ body {
     transition: color 0.4s ease;
 }
 
+/* ===== BOTÃO "VER MAIS" DA TIMELINE ===== */
+.timeline-toggle-btn {
+    margin-top: 0.875rem;
+    padding: 0.5rem 1.25rem;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-style: italic;
+    letter-spacing: 0.2px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 12px var(--shadow);
+    display: inline-block;
+}
+
+.timeline-toggle-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px var(--shadow);
+}
+
+.timeline-toggle-btn:active {
+    transform: translateY(0);
+}
+
+/* ===== POLAROID ===== */
+.polaroid-container {
+    margin-top: 1.1rem;
+    display: flex;
+    justify-content: center;
+    animation: polaroidDrop 0.65s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.polaroid-container.hidden {
+    display: none;
+}
+
+/* Frame estilo polaroid — fundo sempre branco para autenticidade */
+.polaroid {
+    background: #ffffff;
+    padding: 10px 10px 0 10px;
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.20),
+        0 2px  6px rgba(0, 0, 0, 0.10),
+        inset 0 0 0 1px rgba(0,0,0,0.04);
+    transform: rotate(var(--rotation, -2deg));
+    max-width: 210px;
+    width: 100%;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.04);
+    box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.25),
+        0  4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Área quadrada da foto */
+.polaroid-photo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--primary-light);
+}
+
+/* Imagem real */
+.polaroid-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.polaroid-img[src=""] {
+    display: none;
+}
+
+/* Esconde placeholder quando foto está presente */
+.polaroid-photo:has(.polaroid-img:not([src=""])) .polaroid-placeholder {
+    display: none;
+}
+
+/* Placeholder dentro do frame */
+.polaroid-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    color: var(--primary);
+    opacity: 0.5;
+}
+
+.polaroid-placeholder span:first-child {
+    font-size: 2.25rem;
+    line-height: 1;
+}
+
+.polaroid-placeholder span:last-child {
+    font-size: 0.68rem;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    color: var(--text2);
+    text-align: center;
+}
+
+/* Legenda embaixo da foto, dentro do frame branco */
+.polaroid-caption {
+    text-align: center;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 0.8rem;
+    color: #3a3a3a;
+    padding: 8px 4px 12px;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+/* Animação de queda/polaroid caindo no lugar */
+@keyframes polaroidDrop {
+    0%   { opacity: 0; transform: translateY(-30px) scale(0.82) rotate(-4deg); }
+    55%  { opacity: 1; transform: translateY(6px)   scale(1.03) rotate(1deg); }
+    75%  {             transform: translateY(-3px)  scale(0.99) rotate(-0.5deg); }
+    100% { opacity: 1; transform: translateY(0)     scale(1)    rotate(0deg); }
+}
+
+@media (min-width: 480px) {
+    .polaroid {
+        max-width: 230px;
+    }
+}
+
+/* ===== GALERIA ESPALHADA ===== */
+
+.gallery-scatter-section {
+    text-align: center;
+}
+
+.scatter-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 0 10px;
+    transition: opacity 0.35s ease;
+}
+
+.scatter-hint {
+    color: var(--text2);
+    font-size: 0.9rem;
+    opacity: 0.75;
+    margin: 0;
+}
+
+.scatter-open-btn,
+.scatter-close-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+    box-shadow: 0 4px 18px var(--shadow);
+    letter-spacing: 0.02em;
+}
+
+.scatter-open-btn:hover,
+.scatter-close-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Wrapper visível/oculto */
+.scatter-wrapper {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.scatter-wrapper.visible {
+    opacity: 1;
+}
+
+/* Container com altura fixa para posicionamento absoluto */
+.scatter-container {
+    position: relative;
+    width: 100%;
+    height: 1600px; /* mobile: 6 linhas de polaroids */
+    margin: 0 auto;
+}
+
+/* Cada polaroid */
+.scatter-polaroid {
+    position: absolute;
+    top:  var(--top);
+    left: var(--left);
+    width: 140px;
+    background: #ffffff;
+    padding: 8px 8px 36px 8px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.10);
+    opacity: 0;
+    transform: rotate(var(--rot)) translateY(-80px) scale(0.7);
+    cursor: pointer;
+    z-index: 1;
+    transition: box-shadow 0.2s ease, z-index 0s;
+}
+
+.scatter-polaroid.visible {
+    animation: scatterDrop 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) var(--delay) both;
+}
+
+/* Toque / clique: zoom e trazer para frente */
+.scatter-polaroid.focused {
+    transform: rotate(0deg) scale(1.14) !important;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28) !important;
+    z-index: 100 !important;
+}
+
+.scatter-photo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #f0f0f0;
+    overflow: hidden;
+}
+
+.scatter-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scatter-img[src=""] {
+    display: none;
+}
+
+.scatter-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-light);
+    color: var(--text2);
+    font-size: 2rem;
+}
+
+.scatter-photo:has(.scatter-img:not([src=""])) .scatter-placeholder {
+    display: none;
+}
+
+.scatter-caption {
+    margin: 8px 0 0;
+    font-size: 0.7rem;
+    color: #555;
+    text-align: center;
+    font-family: 'Georgia', serif;
+    line-height: 1.3;
+}
+
+.scatter-close-btn {
+    display: block;
+    margin: 24px auto 0;
+}
+
+@keyframes scatterDrop {
+    0%   {
+        opacity: 0;
+        transform: rotate(calc(var(--rot) - 10deg)) translateY(-90px) scale(0.65);
+    }
+    60%  {
+        opacity: 1;
+        transform: rotate(calc(var(--rot) + 2deg)) translateY(8px) scale(1.05);
+    }
+    80%  {
+        transform: rotate(calc(var(--rot) - 1deg)) translateY(-3px) scale(0.99);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(var(--rot)) translateY(0) scale(1);
+    }
+}
+
+/* Desktop */
+@media (min-width: 600px) {
+    .scatter-container {
+        height: 1600px;
+        max-width: 580px;
+    }
+
+    .scatter-polaroid {
+        width: 200px;
+        padding: 10px 10px 48px 10px;
+    }
+
+    .scatter-caption {
+        font-size: 0.76rem;
+    }
+}
+
 /* ===== RODAPÉ ===== */
 .footer {
     text-align: center;

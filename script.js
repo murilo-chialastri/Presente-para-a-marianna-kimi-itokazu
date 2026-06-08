@@ -225,6 +225,11 @@ function initCarousel() {
 // ===== LINHA DO TEMPO =====
 
 function initTimeline() {
+    setupTimelineScrollAnimation();
+    setupTimelineToggles();
+}
+
+function setupTimelineScrollAnimation() {
     var items = document.querySelectorAll('.timeline-item');
 
     var observer = new IntersectionObserver(function(entries) {
@@ -240,6 +245,126 @@ function initTimeline() {
     });
 }
 
+function setupTimelineToggles() {
+    document.querySelectorAll('.timeline-toggle-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            togglePolaroid(btn);
+        });
+    });
+}
+
+function togglePolaroid(button) {
+    var item      = button.closest('.timeline-item');
+    var container = item.querySelector('.polaroid-container');
+    var isOpen    = !container.classList.contains('hidden');
+
+    // Fecha todos (incluindo o atual, se estava aberto)
+    closeAllPolaroids();
+
+    // Se estava fechado, abre
+    if (!isOpen) {
+        container.classList.remove('hidden');
+        restartAnimation(container);
+        button.textContent = 'Fechar ✕';
+        button.setAttribute('aria-expanded', 'true');
+    }
+}
+
+function closeAllPolaroids() {
+    document.querySelectorAll('.polaroid-container').forEach(function(c) {
+        c.classList.add('hidden');
+    });
+    document.querySelectorAll('.timeline-toggle-btn').forEach(function(b) {
+        b.textContent = 'Ver mais ❤️';
+        b.setAttribute('aria-expanded', 'false');
+    });
+}
+
+function restartAnimation(element) {
+    element.style.animation = 'none';
+    void element.offsetWidth; // força reflow para reiniciar
+    element.style.animation  = '';
+}
+
+// ===== GALERIA ESPALHADA =====
+
+function openScatterGallery() {
+    var intro   = document.getElementById('scatter-intro');
+    var wrapper = document.getElementById('scatter-wrapper');
+
+    // Fade out botão de abrir
+    intro.style.opacity        = '0';
+    intro.style.pointerEvents  = 'none';
+
+    setTimeout(function() {
+        intro.classList.add('hidden');
+        wrapper.classList.remove('hidden');
+
+        // Força reflow antes de adicionar visible (ativa a transição de opacity)
+        void wrapper.offsetWidth;
+        wrapper.classList.add('visible');
+
+        // Anima cada polaroid em sequência
+        var polaroids = document.querySelectorAll('.scatter-polaroid');
+        polaroids.forEach(function(p) {
+            p.classList.remove('visible', 'focused');
+            p.style.animation = 'none';
+            void p.offsetWidth;
+            p.style.animation = '';
+        });
+
+        polaroids.forEach(function(p, i) {
+            setTimeout(function() {
+                p.classList.add('visible');
+            }, i * 120);
+        });
+
+    }, 300);
+}
+
+function closeScatterGallery() {
+    var intro   = document.getElementById('scatter-intro');
+    var wrapper = document.getElementById('scatter-wrapper');
+
+    // Fade out wrapper
+    wrapper.classList.remove('visible');
+
+    setTimeout(function() {
+        wrapper.classList.add('hidden');
+
+        // Limpa estado dos polaroids para próxima abertura
+        document.querySelectorAll('.scatter-polaroid').forEach(function(p) {
+            p.classList.remove('visible', 'focused');
+        });
+
+        // Revela o botão de abrir
+        intro.classList.remove('hidden');
+        intro.style.opacity       = '0';
+        void intro.offsetWidth;
+        intro.style.opacity       = '';
+        intro.style.pointerEvents = '';
+    }, 420);
+}
+
+function handleScatterTap(polaroid) {
+    var isFocused = polaroid.classList.contains('focused');
+
+    // Remove foco de todos
+    document.querySelectorAll('.scatter-polaroid').forEach(function(p) {
+        p.classList.remove('focused');
+    });
+
+    // Alterna foco no clicado
+    if (!isFocused) {
+        polaroid.classList.add('focused');
+    }
+}
+
+function setupScatterGallery() {
+    document.getElementById('scatter-open-btn').addEventListener('click', openScatterGallery);
+    document.getElementById('scatter-close-btn').addEventListener('click', closeScatterGallery);
+}
+
 // ===== INICIALIZAÇÃO =====
 
 function initApp() {
@@ -247,6 +372,7 @@ function initApp() {
     setupLetter();
     initCarousel();
     initTimeline();
+    setupScatterGallery();
 }
 
 // ===== PONTO DE ENTRADA =====
